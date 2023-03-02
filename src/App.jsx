@@ -96,10 +96,10 @@ const App = () => {
         {data.map((patient, index) => (
           <div className="row" key={index}>
             <motion.div className="card"
-              initial={{ opacity: 1, x: -200 }}
+              initial={{ opacity: 1, x: -800 }}
               animate={{ x: 0 }}
               whileHover={{ scale: 1.1 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.1, type:'tween'}}
             >
               <h2 className="card-title">{patient.name}</h2>
               <table className="table">
@@ -133,10 +133,10 @@ const App = () => {
               </table>
             </motion.div>
             <motion.div
-              initial={{ opacity: 1, x: 200 }}
+              initial={{ opacity: 1, x: 800 }}
               animate={{ x: 0 }}
               whileHover={{ scale: 1.1 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.1, type:'tween' }}
             >
               <VitalsChart data={[patient]} />
             </motion.div>
