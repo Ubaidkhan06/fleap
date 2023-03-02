@@ -3,6 +3,8 @@ import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import VitalsChart from './VitalsChart';
+import { motion } from 'framer-motion'
+
 
 const App = () => {
   const [data, setData] = useState([
@@ -93,7 +95,12 @@ const App = () => {
       <div className="container">
         {data.map((patient, index) => (
           <div className="row" key={index}>
-            <div className="card">
+            <motion.div className="card"
+              initial={{ opacity: 1, x: -200 }}
+              animate={{ x: 0 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ delay: 0.1 }}
+            >
               <h2 className="card-title">{patient.name}</h2>
               <table className="table">
                 <thead>
@@ -124,10 +131,15 @@ const App = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 1, x: 200 }}
+              animate={{ x: 0 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ delay: 0.1 }}
+            >
               <VitalsChart data={[patient]} />
-            </div>
+            </motion.div>
           </div>
         ))}
 

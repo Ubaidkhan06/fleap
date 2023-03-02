@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 29px auto;
   padding: 20px;
+
 }
 
 .title {
@@ -12,6 +13,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 20px;
+  padding: 20px;
 }
 
 .card {
