@@ -22,7 +22,7 @@ const App = () => {
       "name": 'Ubaid',
       "heart_rate": 70,
       "blood_pressure": {
-        "systolic": 120,
+        "systolic": 520,
         "diastolic": 80
       },
       "respiratory_rate": 16,
@@ -30,39 +30,64 @@ const App = () => {
     }
   ])
 
-  const [warning, setWarning] = useState(false)
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
+
 
   const fetchData = async () => {
-    const response = await fetch('http://localhost:5000/api/v1/patient/1/vitals');
-    const json = await response.json();
-    setData(json);
+    
+    // !Uncomment when api is available
+    // const response = await fetch('http://localhost:5000/api/v1/patient/1/vitals');
+    // const json = await response.json();
+    // setData(json);
 
-    // !warning for heart Rate
-    if (data[0].heart_rate > 100 || data[0].heart_rate < 60) {
-      const notify = () => toast.error("Heart Rate not Stable");
-      notify()
-    }
+    data.map(item => {
+      // !warning for heart Rate
+      if (item.heart_rate > 100 || item.heart_rate < 60) {
+        const notify = () => toast.error(`${item.name}'s Heart Rate is not Stable`);
+        notify()
+      }
 
-    // ! Warning for blood pressure
-    // let bloodPressure = data[0].blood_pressure.diastolic / data[0].blood_pressure.systolic
-    if (data[0].blood_pressure.systolic > 140 || data[0].blood_pressure.systolic < 90 ||
-      data[0].blood_pressure.diastolic > 90 || data[0].blood_pressure.diastolic < 60
-    ) {
-      const notify = () => toast.error("Blood Pressure not Stable");
-      notify()
-    }
+      // ! Warning for blood pressure
+      // let bloodPressure = data[0].blood_pressure.diastolic / data[0].blood_pressure.systolic
+      if (item.blood_pressure.systolic > 140 || item.blood_pressure.systolic < 90 ||
+        data[0].blood_pressure.diastolic > 90 || data[0].blood_pressure.diastolic < 60
+      ) {
+        const notify = () => toast.error(`${item.name}'s blood pressure is not Stable`);
+        notify()
+      }
 
-    //  ! Respiratory rates warning
-    if (data[0].respiratory_rate < 12 || data[0].respiratory_rate > 20) {
-      const notify = () => toast.error("Respiration not Stable");
-      notify()
-    }
+      //  ! Respiratory rates warning
+      if (item.respiratory_rate < 12 || item.respiratory_rate > 20) {
+        const notify = () => toast.error(`${item.name}'s respiration rate is not normal`);
+        notify()
+      }
 
-    // !Temperature Warning
-    if (data[0].temperature < 35.5 || data[0].temperature > 37.5) {
-      const notify = () => toast.error("Temperature not Stable");
-      notify()
-    }
+      // !Temperature Warning
+      if (item.temperature < 35.5 || item.temperature > 37.5) {
+        const notify = () => toast.error(`${item.name}'s temperature is not normal`);
+        notify()
+      }
+    })
+
+
   };
 
   // !Fetch data every 5 seconds
@@ -92,14 +117,17 @@ const App = () => {
       />
 
       <h1 className="title">Patient Vital Signs Dashboard</h1>
-      <div className="container">
+      <motion.div className="container"
+        initial="hidden"
+        animate="visible"
+      >
         {data.map((patient, index) => (
-          <div className="row" key={index}>
+          <motion.div className="row" key={index}>
             <motion.div className="card"
               initial={{ opacity: 1, x: -800 }}
               animate={{ x: 0 }}
               whileHover={{ scale: 1.1 }}
-              transition={{ delay: 0.1, type:'tween'}}
+              transition={{ delay: 0.1, type: 'tween' }}
             >
               <h2 className="card-title">{patient.name}</h2>
               <table className="table">
@@ -136,14 +164,14 @@ const App = () => {
               initial={{ opacity: 1, x: 800 }}
               animate={{ x: 0 }}
               whileHover={{ scale: 1.1 }}
-              transition={{ delay: 0.1, type:'tween' }}
+              transition={{ delay: 0.1, type: 'tween' }}
             >
               <VitalsChart data={[patient]} />
             </motion.div>
-          </div>
+          </motion.div>
         ))}
 
-      </div>
+      </motion.div>
     </>
   );
 };
