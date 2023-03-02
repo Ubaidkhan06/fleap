@@ -6,7 +6,7 @@ const VitalsChart = ({ data }) => {
     const [chart, setChart] = useState(null);
 
     useEffect(() => {
-        const ctx = document.getElementById('vitals-chart');
+        const ctx = document.getElementById(data[0].name);
         const heartRate = data[0].heart_rate;
         const systolic = data[0].blood_pressure.systolic;
         const diastolic = data[0].blood_pressure.diastolic;
@@ -41,8 +41,7 @@ const VitalsChart = ({ data }) => {
 
         const chartOptions = {
             scales: {
-
-                y: {    
+                y: {
                     ticks: {
                         beginAtZero: true
                     }
@@ -67,10 +66,10 @@ const VitalsChart = ({ data }) => {
 
     return (
         <div style={{
-            width : '100%',
-            height : '100%'
+            width: '100%',
+            height: '100%'
         }}>
-            <canvas id="vitals-chart" width={'500px'} height={'360px'}></canvas>
+            <canvas id={data[0].name} width={'500px'} height={'360px'}></canvas>
         </div>
     );
 };

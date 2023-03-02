@@ -15,8 +15,17 @@ const App = () => {
       },
       "respiratory_rate": 16,
       "temperature": 36.5
+    },
+    {
+      "name": 'Ubaid',
+      "heart_rate": 70,
+      "blood_pressure": {
+        "systolic": 120,
+        "diastolic": 80
+      },
+      "respiratory_rate": 16,
+      "temperature": 36.5
     }
-
   ])
 
   const [warning, setWarning] = useState(false)
@@ -82,47 +91,46 @@ const App = () => {
 
       <h1 className="title">Patient Vital Signs Dashboard</h1>
       <div className="container">
-        <div className="row">
-          {data.map((patient, index) => (
-            <div key={index} className="col-md-6 col-lg-4">
-              <div className="card">
-                <h2 className="card-title">{patient.name}</h2>
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Vital Sign</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Heart Rate (BPM)</td>
-                      <td style={patient.heart_rate > 100 || patient.heart_rate < 60 ? { backgroundColor: 'red' } : null}>{patient.heart_rate}</td>
-                    </tr>
-                    <tr>
-                      <td>Blood Pressure (mmHg)</td>
-                      <td>
-                        {patient.blood_pressure.systolic}/
-                        {patient.blood_pressure.diastolic}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Respiratory Rate (breaths per minute)</td>
-                      <td>{patient.respiratory_rate}</td>
-                    </tr>
-                    <tr>
-                      <td>Temperature (degrees Celsius)</td>
-                      <td>{patient.temperature}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+        {data.map((patient, index) => (
+          <div className="row" key={index}>
+            <div className="card">
+              <h2 className="card-title">{patient.name}</h2>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Vital Sign</th>
+                    <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Heart Rate (BPM)</td>
+                    <td style={patient.heart_rate > 100 || patient.heart_rate < 60 ? { backgroundColor: 'red' } : null}>{patient.heart_rate}</td>
+                  </tr>
+                  <tr>
+                    <td>Blood Pressure (mmHg)</td>
+                    <td>
+                      {patient.blood_pressure.systolic}/
+                      {patient.blood_pressure.diastolic}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Respiratory Rate (breaths per minute)</td>
+                    <td>{patient.respiratory_rate}</td>
+                  </tr>
+                  <tr>
+                    <td>Temperature (degrees Celsius)</td>
+                    <td>{patient.temperature}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          ))}
-        </div>
-        <div>
-          <VitalsChart data={data} />
-        </div>
+            <div>
+              <VitalsChart data={[patient]} />
+            </div>
+          </div>
+        ))}
+
       </div>
     </>
   );
