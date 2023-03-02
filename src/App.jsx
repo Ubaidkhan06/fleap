@@ -22,7 +22,7 @@ const App = () => {
       "name": 'Ubaid',
       "heart_rate": 70,
       "blood_pressure": {
-        "systolic": 520,
+        "systolic": 120,
         "diastolic": 80
       },
       "respiratory_rate": 16,
@@ -52,7 +52,7 @@ const App = () => {
 
 
   const fetchData = async () => {
-    
+
     // !Uncomment when api is available
     // const response = await fetch('http://localhost:5000/api/v1/patient/1/vitals');
     // const json = await response.json();
